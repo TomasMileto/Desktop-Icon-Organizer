@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop-Icon-Organizer", "Desktop-Icon-Organizer\Desktop-Icon-Organizer.csproj", "{46BB2255-1DFF-4BF0-8F72-88D077760241}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46BB2255-1DFF-4BF0-8F72-88D077760241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46BB2255-1DFF-4BF0-8F72-88D077760241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46BB2255-1DFF-4BF0-8F72-88D077760241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46BB2255-1DFF-4BF0-8F72-88D077760241}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8C0E565-57A8-44E1-B63E-1E6CB91AAF46}
+	EndGlobalSection
+EndGlobal
