@@ -6,41 +6,72 @@
         xmlns:local="clr-namespace:Desktop_Icon_Organizer"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="D.I.O" Height="400" Width="800">
-    <Grid Height="400" VerticalAlignment="Bottom" Background="#FFAAA9A9">
+        Title="D.I.O" Height="600" Width="800">
+    <Grid Height="600" VerticalAlignment="Bottom" Background="#FFAAA9A9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--TITLE-->
+        <TextBlock Grid.Row="0" Margin="0,45,0,0" TextWrapping="Wrap" Text="Desktop Icon Organizer" VerticalAlignment="Top" RenderTransformOrigin="1.562,0.251" FontFamily="Arial Black" FontSize="36" TextAlignment="Center"/>
+        <Grid Margin="0,10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--FILE TYPE-->
+            <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="50" Margin="50,0,0,0" VerticalAlignment="Top" Width="550">
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,-4">
+                    <Label Content="File Type:"  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="18" Width="106"/>
+                    <ComboBox Name="cmbbox_FileTypes"  IsReadOnly="True"  VerticalAlignment="Center" Width="120" Margin="10,14">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" ToolTip="{Binding Extensions}">
+                                    <TextBlock Text="{Binding FileName}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <!--<TextBox  Height="23" Margin="20,0,0,0"  TextWrapping="Wrap" Name="CustomUrl" VerticalAlignment="Center" Width="358"/>-->
+                </StackPanel>
+            </Border>
 
-        <TextBlock Margin="0,45,0,0" TextWrapping="Wrap" Text="Desktop Icon Organizer" VerticalAlignment="Top" RenderTransformOrigin="1.562,0.251" FontFamily="Arial Black" FontSize="36" TextAlignment="Center"/>
-        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="50" Margin="50,123,0,0" VerticalAlignment="Top" Width="655">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Extension:"  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="18" Width="106"/>
-                <ComboBox  Margin="0,0,0,0" VerticalAlignment="Center" Width="120"/>
-                <TextBox  Height="23" Margin="20,0,0,0"  TextWrapping="Wrap" Name="CustomUrl" VerticalAlignment="Center" Width="358"/>
-            </StackPanel>
-        </Border>
-        <TextBlock Text="⮦" FontSize="50" Width="50" Height="60" Margin="77,217,665,123"   >
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-89.852"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>
-        </TextBlock>
+            <!--SELECT FOLDER-->
+            <Border  HorizontalAlignment="Left" Height="70" Margin="50,80,0,0" VerticalAlignment="Top" Width="550">
+                <StackPanel Margin="0,0,0,-36" Orientation="Vertical">
+                    <DockPanel  HorizontalAlignment="Stretch">
+                        <Label Content="Into Folder:"  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="18" Width="106"/>
+                        <Border BorderThickness="1" BorderBrush="Black" Height="32" Margin="10,0,50,0">
+                            <TextBlock x:Name="txtSelectedFolder" Padding="5,0,0,0" TextWrapping="Wrap" Text="No Selection" FontSize="12"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </DockPanel>
+                    <Button Name="btnSelectFolder"  Click="btnSelectFolder_Click" Height="30" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="15" FontFamily="Consolas" >Select Folder</Button>
+                </StackPanel>
+            </Border>
 
-        <Border  HorizontalAlignment="Left" Height="50" Margin="148,178,0,0" VerticalAlignment="Top" Width="557">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Into Folder:"  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="18" Width="106"/>
-                <Button Name="btnSelectFolder"  Click="btnSelectFolder_Click" Height="30" Margin="5,0" FontSize="15" FontFamily="Consolas" >Select Folder</Button>
-                <Border BorderThickness="1" BorderBrush="Black" Width="330" Height="30">
-                    <TextBlock Name="txtSelectedFolder" TextWrapping="Wrap" Text="No Selection" FontSize="12"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Border>
-            </StackPanel>
+            <!--EXTENSIONS-->
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" Margin="0,0,5,0" Grid.Row="1" Grid.Column="1">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Extensions"  Margin="10,-15,0,0"  FontSize="18" Background="#FFAAA9A9" HorizontalAlignment="Left" Padding="10,0"/>
+                    <CheckBox Name="AllExtensions" Content="Select ALL"  IsThreeState="True" Margin="20,5" />
+                    <ItemsControl Margin="45,5" Background="#FFAAA9A9">
+                        <CheckBox  Content="Select ALL" Margin="0,0,0,10" />
+                        <CheckBox  Content="Select ALL" Margin="0,0,0,10"/>
+                        <CheckBox  Content="Select ALL" Margin="0,0,0,10"/>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!--OUTPUT-->
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" Grid.Row="2" Margin="47,0,47,90">
+            <TextBlock Name="txtOutput" Text="The outcome will be displayed here!" Padding="5" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                       Height="104" Width="696" Background="White" FontFamily="Console" FontSize="14" Foreground="#FF5F5B5B"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="2" Margin="70,251,46,49">
-            <TextBlock Name="txtOutput" Text="The outcome will be displayer here!" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="104" Width="696" Background="White" FontFamily="Console" FontSize="14" Foreground="#FF5F5B5B"/>
-        </Border>
-        <Button Content="RUN" Height="30" FontSize="20" VerticalAlignment="Bottom" Margin="346,0,369,19"/>
+
+        <!--RUN-->
+        <Button Content="RUN" Width="100" Height="30" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="346,0,369,19" Grid.Row="2"/>
 
 
     </Grid>

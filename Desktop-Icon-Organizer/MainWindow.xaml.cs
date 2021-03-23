@@ -24,14 +24,31 @@ namespace Desktop_Icon_Organizer
         public MainWindow()
         {
             InitializeComponent();
+
+            List<FileType> fileTypes = new List<FileType>();
+            fileTypes.Add(new FileType("Text", ".txt.doc.docx.rtf.wpd"));
+            fileTypes.Add(new FileType("Image"));
+            fileTypes.Add(new FileType("Video"));
+            fileTypes.Add(new FileType("Compressed"));
+            fileTypes.Add(new FileType("Steam Game"));
+            fileTypes.Add(new FileType("Shortcut"));
+            cmbbox_FileTypes.ItemsSource = fileTypes;
+            //cmbbox_FileTypes.SelectedIndex = 0;
+
+            foreach(string ext in fileTypes[0].Extensions)
+            {
+                Console.WriteLine(ext);
+            }
+            
         }
+
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new CommonOpenFileDialog();
             dlg.Title = "Destination Folder Dialog";
             dlg.IsFolderPicker = true;
-            dlg.InitialDirectory= Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             dlg.AddToMostRecentlyUsedList = false;
             dlg.AllowNonFileSystemItems = false;
@@ -51,4 +68,40 @@ namespace Desktop_Icon_Organizer
             }
         }
     }
+
+    public class FileType
+    {
+        public string FileName { get; set; }
+        public List<string> Extensions { get; set; }
+
+        public FileType(string _name)
+        {
+            this.FileName = _name;
+        }
+        public FileType(string _name, string extList)
+        {
+            this.FileName = _name;
+
+            List<string> _extensions = new List<string>();
+            int i=0, j;
+            for(j=i+1; j<extList.Length; j++)
+            {
+                if(extList[j] == '.' )      //if j is pointing at a '.' 
+                {
+                    _extensions.Add(extList.Substring(i, j - i));
+                    i = j;
+                }
+                if(j == extList.Length - 1)                         //or at the last char of the string
+                {
+                    _extensions.Add(extList.Substring(i, j + 1 - i));
+                }
+            }
+
+            this.Extensions = new List<string>();
+            this.Extensions = _extensions;
+        }
+
+    }
+        
+
 }
