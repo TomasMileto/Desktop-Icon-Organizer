@@ -21,27 +21,48 @@ namespace Desktop_Icon_Organizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        FileType selectedFileType;
         public MainWindow()
         {
             InitializeComponent();
 
             List<FileType> fileTypes = new List<FileType>();
             fileTypes.Add(new FileType("Text", ".txt.doc.docx.rtf.wpd"));
-            fileTypes.Add(new FileType("Image"));
-            fileTypes.Add(new FileType("Video"));
-            fileTypes.Add(new FileType("Compressed"));
-            fileTypes.Add(new FileType("Steam Game"));
-            fileTypes.Add(new FileType("Shortcut"));
+            fileTypes.Add(new FileType("Image", ".jpg.jpeg.png.gif.tiff.eps.raw"));
+            fileTypes.Add(new FileType("Video", ".mp4.mov.wmv.avi.flv.f4v.webm"));
+            fileTypes.Add(new FileType("Compressed", ".rar.zip.7z.rpm.z"));
+            fileTypes.Add(new FileType("Steam Game", ".url.gam.sav"));
+            fileTypes.Add(new FileType("Shortcut", ".link"));
             cmbbox_FileTypes.ItemsSource = fileTypes;
             //cmbbox_FileTypes.SelectedIndex = 0;
 
-            foreach(string ext in fileTypes[0].Extensions)
-            {
-                Console.WriteLine(ext);
-            }
-            
+            //selectedFileType = fileTypes[0];
+            //if(selectedFileType != null)
+            //    itemsExtensions.ItemsSource = selectedFileType.Extensions;
+
         }
 
+        private void cmboxFileTypes_SlctChanged(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            this.selectedFileType = comboBox.SelectedItem as FileType;
+
+            itmctrlExtensions.ItemsSource = selectedFileType.Extensions;
+        }
+
+        private void AllExtensions_Checked(object sender, RoutedEventArgs e)
+        {
+            int i;
+            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
+            {
+                UIElement uiElement = (UIElement)itmctrlExtensions.ItemContainerGenerator.ContainerFromIndex(i);
+                CheckBox checkBox = uiElement as CheckBox;
+                checkBox.IsChecked = true;
+            }
+           
+
+        }
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +88,7 @@ namespace Desktop_Icon_Organizer
                 // Do something with selected folder string
             }
         }
+
     }
 
     public class FileType
