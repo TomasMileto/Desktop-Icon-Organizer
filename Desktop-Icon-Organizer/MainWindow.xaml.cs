@@ -22,6 +22,8 @@ namespace Desktop_Icon_Organizer
     public partial class MainWindow : Window
     {
         FileType selectedFileType;
+        string folderPath;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace Desktop_Icon_Organizer
             fileTypes.Add(new FileType("Video", ".mp4.mov.wmv.avi.flv.f4v.webm"));
             fileTypes.Add(new FileType("Compressed", ".rar.zip.7z.rpm.z"));
             fileTypes.Add(new FileType("Steam Game", ".url.gam.sav"));
+            fileTypes.Add(new FileType("Photoshop", ".psd.psb"));
             fileTypes.Add(new FileType("Shortcut", ".link"));
             cmbbox_FileTypes.ItemsSource = fileTypes;
             //cmbbox_FileTypes.SelectedIndex = 0;
@@ -48,11 +51,13 @@ namespace Desktop_Icon_Organizer
 
             this.selectedFileType = comboBox.SelectedItem as FileType;
 
+            AllExtensions.IsChecked = false;
+
             itmctrlExtensions.ItemsSource = selectedFileType.Extensions;
 
         }
 
-
+        #region CheckBoxes
         private void AllExtensions_Checked(object sender, RoutedEventArgs e)
         {
             int i;
@@ -113,6 +118,7 @@ namespace Desktop_Icon_Organizer
             else
                 AllExtensions.IsChecked = null;
         }
+        #endregion
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -135,10 +141,46 @@ namespace Desktop_Icon_Organizer
             {
                 var folder = dlg.FileName;
                 txtSelectedFolder.Text = folder;
-                // Do something with selected folder string
+                folderPath = folder;
             }
         }
 
+        private void RUN_Click(object sender, RoutedEventArgs e)
+        {
+            string output = "";
+            bool errorFlag = false;
+
+            if(selectedFileType == null){
+                output += "No file type was selected.\n";
+                errorFlag = true;
+            }else 
+                if(AllExtensions.IsChecked == false){
+                    output += "No file extension was checked.\n";
+                    errorFlag = true;
+                 }
+            if (folderPath == null){
+                output += "No destination folder was selected.\n";
+                errorFlag = true;
+            }
+
+            if (errorFlag){
+                txtOutput.Foreground = Brushes.Red; return;
+            }
+            //If no error was raised
+            List<string> selectedExtensions = new List<string>();
+
+            for (int i = 0; i < itmctrlExtensions.Items.Count; i++)
+            {
+                DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
+                CheckBox checkBox = dObject as CheckBox;
+
+                if (checkBox.IsChecked == true) 
+                    selectedExtensions.Add(selectedFileType.Extensions[i]);
+            }
+
+            txtOutput.Text = Run(folderPath, selectedFileType, selectedExtensions);
+
+        }
     }
 
     public class FileType

@@ -76,7 +76,7 @@
         </Border>
 
         <!--RUN-->
-        <Button Content="RUN" Width="100" Height="30" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="346,0,369,19" Grid.Row="2"/>
+        <Button Content="RUN" Width="100" Height="30" FontSize="20" Click="RUN_Click" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="346,0,369,19" Grid.Row="2"/>
 
 
     </Grid>

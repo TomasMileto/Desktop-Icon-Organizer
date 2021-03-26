@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,6 +23,44 @@ namespace Desktop_Icon_Organizer
     public partial class MainWindow : Window
     {
 
+        string Run(string _destFolder, FileType _fileType, List<string> _selExtns)
+        {
+            string pathTop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            //Get All files matching any element of the list of selected extensions
+            List<string> selectedFiles = GetAllFiles(pathTop, _selExtns);
+
+
+            //Move the files which names are in selectedFiles to the folder Steam Games
+            string source = null;
+            string dest = null;
+            int movedCount = 0;
+            foreach (string file in selectedFiles)
+            {
+                source = System.IO.Path.Combine(pathTop, file);
+                dest = System.IO.Path.Combine(_destFolder, file);
+
+                if (!System.IO.File.Exists(dest)){
+                    System.IO.File.Move(source, dest);
+                    movedCount++;
+                }
+            }
+
+            return $"Successfully moved {movedCount} {_fileType.FileName} file(s) ({List2String(_selExtns)}) to the folder: {System.IO.Path.GetFileName(_destFolder)}";
+        }
+        List<string> GetAllFiles(string _directory, List<string> ext_list )
+        {
+            List<string> files = new List<string>();
+
+            string[] fileEntries = Directory.GetFiles(_directory);
+
+            foreach (string filePath in fileEntries)
+                if (ext_list.Contains(System.IO.Path.GetExtension(filePath)))
+                    files.Add(System.IO.Path.GetFileName(filePath));
+
+            return files;
+        }
+
         void Output (string s)
         {
             if (txtOutput.Text == "The outcome will be displayed here!")
@@ -29,6 +68,7 @@ namespace Desktop_Icon_Organizer
             else
                 txtOutput.Text += s;
         }
+        #region Output FUNC Overloads
         void Output (int i)
         {
             string s = i.ToString();
@@ -45,6 +85,21 @@ namespace Desktop_Icon_Organizer
             else
                 txtOutput.Text += s;
         }
+        #endregion
+
+        string List2String(List<string> _list)
+        {
+            string ret = "";
+            for (int i = 0; i < _list.Count; i++){
+                if( i == _list.Count -1)
+                    ret += $"{_list[i]}.";
+                else
+                    ret += $"{_list[i]}, ";
+            }
+           
+            return ret;
+        }
+
 
         DependencyObject findElementInItemsControlItemAtIndex(ItemsControl itemsControl, int itemOfIndexToFind, string nameOfControlToFind)
         {
@@ -74,7 +129,6 @@ namespace Desktop_Icon_Organizer
                 var childElement = oChild as FrameworkElement;
                 if (childElement != null)
                 {
-                    //Code to take care of Paragraph/Run
                     if ( childElement is TextBlock)
                     {
                         dependencyObject = childElement.FindName(name) as DependencyObject;
