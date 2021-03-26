@@ -49,22 +49,69 @@ namespace Desktop_Icon_Organizer
             this.selectedFileType = comboBox.SelectedItem as FileType;
 
             itmctrlExtensions.ItemsSource = selectedFileType.Extensions;
+
         }
+
 
         private void AllExtensions_Checked(object sender, RoutedEventArgs e)
         {
             int i;
-            //txtOutput.Text = itmctrlExtensions.Items.Count.ToString();
-
             
-            for (i = 0; i < itmctrlExtensions.Items.Count-1; i++)
+            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
             {
                 DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
                 CheckBox checkBox = dObject as CheckBox;
                 checkBox.IsChecked = true;
             }
-           
+        }
+        private void AllExtensions_Unchecked(object sender, RoutedEventArgs e)
+        {
+            int i;
 
+            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
+            {
+                DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
+                CheckBox checkBox = dObject as CheckBox;
+                checkBox.IsChecked = false;
+            }
+        }
+
+        private void Extension_Checked(object sender, RoutedEventArgs e)
+        {
+            int i;
+            bool allChecked = true;
+
+            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
+            {
+                DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
+                CheckBox checkBox = dObject as CheckBox;
+
+                if (checkBox.IsChecked == false) allChecked = false;
+            }
+
+            if (allChecked)
+                AllExtensions.IsChecked = true;
+            else
+                AllExtensions.IsChecked = null;
+        }
+
+        private void Extension_Unchecked(object sender, RoutedEventArgs e)
+        {
+            int i;
+            bool allChecked = false;
+
+            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
+            {
+                DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
+                CheckBox checkBox = dObject as CheckBox;
+
+                if (checkBox.IsChecked == true) allChecked = true;
+            }
+
+            if (!allChecked)
+                AllExtensions.IsChecked = false;
+            else
+                AllExtensions.IsChecked = null;
         }
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)

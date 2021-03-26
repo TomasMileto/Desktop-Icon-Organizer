@@ -46,9 +46,7 @@ namespace Desktop_Icon_Organizer
                 txtOutput.Text += s;
         }
 
-        DependencyObject findElementInItemsControlItemAtIndex(ItemsControl itemsControl,
-                                                                int itemOfIndexToFind,
-                                                                string nameOfControlToFind)
+        DependencyObject findElementInItemsControlItemAtIndex(ItemsControl itemsControl, int itemOfIndexToFind, string nameOfControlToFind)
         {
             if (itemOfIndexToFind >= itemsControl.Items.Count) return null;
 
@@ -59,8 +57,6 @@ namespace Desktop_Icon_Organizer
                 var item = itemsControl.ItemContainerGenerator.ContainerFromItem(o);
                 if (item != null)
                 {
-                    //GridViewItem it = item as GridViewItem;
-                    //var i = it.FindName(nameOfControlToFind);
                     depObj = getVisualTreeChild(item, nameOfControlToFind);
                     return depObj;
                 }

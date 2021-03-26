@@ -56,12 +56,12 @@
                 <StackPanel Orientation="Vertical">
                     <Label Content="Extensions"  Margin="10,-15,0,0"  FontSize="18" Background="#FFAAA9A9" HorizontalAlignment="Left" Padding="10,0"/>
                     <!--select all-->
-                    <CheckBox Name="AllExtensions" Content="Select ALL" Checked="AllExtensions_Checked" IsThreeState="True" Margin="20,5" />
+                    <CheckBox Name="AllExtensions" Content="Select ALL" Checked="AllExtensions_Checked" Unchecked="AllExtensions_Unchecked" IsThreeState="True" Margin="20,5" />
                     <ItemsControl Margin="45,5" Background="#FFAAA9A9" Name="itmctrlExtensions">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!--checkbox template-->
-                                <CheckBox Content="{Binding}" Name="extensionCheckbox" Tag="{Binding}" Margin=" 0,0,0,7" ></CheckBox>
+                                <CheckBox Content="{Binding}" Name="extensionCheckbox" Tag="{Binding}" Margin=" 0,0,0,7" Checked="Extension_Checked" Unchecked="Extension_Unchecked" ></CheckBox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
