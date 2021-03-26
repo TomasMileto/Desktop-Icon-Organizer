@@ -61,7 +61,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!--checkbox template-->
-                                <CheckBox Content="{Binding}" Margin=" 0,0,0,7" ></CheckBox>
+                                <CheckBox Content="{Binding}" Name="extensionCheckbox" Tag="{Binding}" Margin=" 0,0,0,7" ></CheckBox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

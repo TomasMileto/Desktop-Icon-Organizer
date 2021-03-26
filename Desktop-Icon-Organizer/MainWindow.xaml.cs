@@ -54,10 +54,13 @@ namespace Desktop_Icon_Organizer
         private void AllExtensions_Checked(object sender, RoutedEventArgs e)
         {
             int i;
-            for (i = 0; i < itmctrlExtensions.Items.Count; i++)
+            //txtOutput.Text = itmctrlExtensions.Items.Count.ToString();
+
+            
+            for (i = 0; i < itmctrlExtensions.Items.Count-1; i++)
             {
-                UIElement uiElement = (UIElement)itmctrlExtensions.ItemContainerGenerator.ContainerFromIndex(i);
-                CheckBox checkBox = uiElement as CheckBox;
+                DependencyObject dObject = findElementInItemsControlItemAtIndex(itmctrlExtensions, i, "extensionCheckbox");
+                CheckBox checkBox = dObject as CheckBox;
                 checkBox.IsChecked = true;
             }
            
