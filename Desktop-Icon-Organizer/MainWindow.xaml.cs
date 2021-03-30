@@ -178,6 +178,7 @@ namespace Desktop_Icon_Organizer
                     selectedExtensions.Add(selectedFileType.Extensions[i]);
             }
 
+            txtOutput.Foreground = Brushes.Black;
             txtOutput.Text = Run(folderPath, selectedFileType, selectedExtensions);
 
         }

@@ -26,6 +26,7 @@ namespace Desktop_Icon_Organizer
         string Run(string _destFolder, FileType _fileType, List<string> _selExtns)
         {
             string pathTop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string ret;
 
             //Get All files matching any element of the list of selected extensions
             List<string> selectedFiles = GetAllFiles(pathTop, _selExtns);
@@ -46,7 +47,12 @@ namespace Desktop_Icon_Organizer
                 }
             }
 
-            return $"Successfully moved {movedCount} {_fileType.FileName} file(s) ({List2String(_selExtns)}) to the folder: {System.IO.Path.GetFileName(_destFolder)}";
+            if (movedCount == 0)
+                ret = $"No files of the type \"{_fileType.FileName}\" ({List2String(_selExtns)}) were moved (due to the lack of these or the presence of duplicate files on {System.IO.Path.GetFileName(_destFolder)}).";
+            else
+                ret = $"Successfully moved {movedCount} {_fileType.FileName} file(s) ({List2String(_selExtns)}) to the folder: {System.IO.Path.GetFileName(_destFolder)}";
+
+            return ret;
         }
         List<string> GetAllFiles(string _directory, List<string> ext_list )
         {
