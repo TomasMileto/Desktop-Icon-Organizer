@@ -3,7 +3,7 @@ Simple Windows app to organize your desktop chaos based on files extenions. This
 
 • Choose a file type\
 • Choose which extensions will be relocated\
-• Choose a destination folder for your desktop items\
+• Choose a destination folder for your desktop items
 
 → And, finally, click RUN
 
