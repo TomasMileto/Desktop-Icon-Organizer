@@ -5,7 +5,7 @@ Simple Windows app to organize your desktop chaos based on files extenions. This
 • Choose which extensions will be relocated\
 • Choose a destination folder for your desktop items
 
-→ And, finally, click RUN
+→ Click RUN
 
 
 
