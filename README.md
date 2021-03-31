@@ -7,6 +7,4 @@ Simple Windows app to organize your desktop chaos based on files extenions. This
 
 ## Download the setup for the app
 
---> https://github.com/TomasMileto/Desktop-Icon-Organizer/blob/main/Setup.msi?raw=true
-
-[You can trust me](https://github.com/TomasMileto/Desktop-Icon-Organizer/blob/main/Setup.msi?raw=true "Download Setup.msi")
+--> [Download Setup.msi](https://github.com/TomasMileto/Desktop-Icon-Organizer/blob/main/Setup.msi?raw=true "You can trust me")
